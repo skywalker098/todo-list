@@ -13,6 +13,7 @@ func (t *todoList) AddTodo(newTodo string) error {
 	}
 	t.todoStore = append(t.todoStore, newtodo)
 	//fmt.Println(newtodo)
+	t.SaveToJson()
 	return nil
 }
 
@@ -23,6 +24,7 @@ func (t *todoList) RemoveTodo(todo string) error {
 			t.todoStore = append(t.todoStore[:i], t.todoStore[i+1:]...)
 		}
 	}
+	// t.SaveToJson()
 	return nil
 }
 

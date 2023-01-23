@@ -1,13 +1,15 @@
 package todo
 
-import "time"
+import (
+	"time"
+)
 
 // Definig interaface---functionalities
-type todoType interface {
-	AddTodo(todo string) error
-	RemoveTodo(todo string) error
-	ListTodo() []string
-}
+// type todoType interface {
+// 	AddTodo(todo string) error
+// 	RemoveTodo(todo string) error
+// 	ListTodo() []string
+// }
 
 // Defining todo "custom data type"
 type todo struct {
@@ -21,7 +23,7 @@ type todoList struct {
 	todoStore []todo
 }
 
-//returnig tolist{} address
-func NewTodoService() todoType {
+// returnig tolist{} address
+func NewTodoService() *todoList {
 	return &todoList{}
 }

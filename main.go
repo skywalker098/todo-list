@@ -8,6 +8,8 @@ import (
 
 func main() {
 	NewTodoServiceIns := todo.NewTodoService()
+	NewTodoServiceIns.LoadFromJson()
+
 	//add
 	fmt.Println(NewTodoServiceIns.AddTodo("Argentina"))
 	fmt.Println(NewTodoServiceIns.AddTodo("Brazil"))
