@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// -------------Save to JSON --------------------------------
 func (t todoList) SavetoJson() {
 	// create files
 	data, err := json.Marshal(t.todoStore)
@@ -18,6 +19,7 @@ func (t todoList) SavetoJson() {
 	}
 }
 
+// ---------------Checck file --------------------------------
 func checkFile(filename string) error {
 	_, err := os.Stat(filename)
 	if os.IsNotExist(err) {
@@ -29,12 +31,15 @@ func checkFile(filename string) error {
 	return nil
 }
 
-//	func (t todoList) AddnewId() int {
-//		if len(t.todoStore) == 0 {
-//			return 1
-//		}
-//		return t.todoStore[len(t.todoStore)-1].Id + 1
-//	}
+// ---------------Add ID to todo --------------------------------
+func (t todoList) AddnewId() int {
+	if len(t.todoStore) == 0 {
+		return 1
+	}
+	return t.todoStore[len(t.todoStore)-1].Id + 1
+}
+
+// --------------Load from JSON --------------------------------
 func (t *todoList) LoadFromJson() {
 	// Check if the file exists
 	if _, err := os.Stat("db.json"); os.IsNotExist(err) {

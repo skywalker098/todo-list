@@ -14,6 +14,8 @@ func main() {
 	// fmt.Println(NewTodoServiceIns.AddTodo("Romania"))
 	// fmt.Println(NewTodoServiceIns.AddTodo("São Paulo"))
 	// NewTodoServiceIns.AddTodo("France")
+	// NewTodoServiceIns.RemoveTodo(3)
+
 	NewTodoServiceIns.ListTodo()
 
 	//remove
