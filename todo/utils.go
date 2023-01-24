@@ -2,89 +2,58 @@ package todo
 
 import (
 	"encoding/json"
-	"io"
+	"fmt"
 	"os"
 )
 
-// #1.Save the todoStore to the Json file___________________________________
-func (t *todoList) SaveToJson() {
-	//create a json file if not exist
-	if _, err := os.Stat("db.json"); os.IsNotExist(err) {
-		_, err := os.Create("db.json")
-		if err != nil {
-			panic(err)
-		}
-	}
-
-	//open the json file
-	file, err := os.OpenFile("db.json", os.O_RDWR, 0o644)
-	if err != nil {
-		panic(err)
-	}
-
-	//marshal the data from todoStore
+func (t todoList) SavetoJson() {
+	// create files
 	data, err := json.Marshal(t.todoStore)
 	if err != nil {
 		panic(err)
 	}
 
-	//write the data to the file
-	_, err = file.Write([]byte(data))
-	if err != nil {
-		panic(err)
-	}
-
-	//close the json file
-	err = file.Close()
-	if err != nil {
+	if err := os.WriteFile("db.json", data, 0o644); err != nil {
 		panic(err)
 	}
 }
 
-// #2.Load the data from the json file_____________________________________
-func (t todoList) LoadFromJson() {
-	//create a json file if not exist
+func checkFile(filename string) error {
+	_, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		_, err := os.Create(filename)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+//	func (t todoList) AddnewId() int {
+//		if len(t.todoStore) == 0 {
+//			return 1
+//		}
+//		return t.todoStore[len(t.todoStore)-1].Id + 1
+//	}
+func (t *todoList) LoadFromJson() {
+	// Check if the file exists
 	if _, err := os.Stat("db.json"); os.IsNotExist(err) {
-		// log.Fatalf("db.json does not exist")
-		_, err := os.Create("db.json")
+		os.Create("db.json")
+	}
+
+	// convert the file to a byte array
+	data, err := os.ReadFile("db.json")
+	if err != nil {
+		panic(err)
+	}
+
+	if len(data) > 0 {
+		// Unmarshal the data from the file to t.todoStore
+		err = json.Unmarshal(data, &t.todoStore)
 		if err != nil {
 			panic(err)
 		}
-
-	}
-
-	//open the json file
-	file, err := os.OpenFile("db.json", os.O_RDWR, 0o644)
-	if err != nil {
-		panic(err)
-	}
-
-	//convert the file to byte array
-	fileByte, err := io.ReadAll(file)
-	if err != nil {
-		panic(err)
-	}
-
-	//check if the file is non empty then unmarshal it
-
-	if len(fileByte) > 0 {
-		//log.Fatalf("db.json is empty")
-		//unmarshal the data from json file to t.todoStore
-		err = json.Unmarshal([]byte(fileByte), &t.todoStore)
-		if err != nil {
-			panic(err)
-		}
-	}
-
-	// //unmarshal the data from json file to t.todoStore
-	// err = json.Unmarshal([]byte(fileByte), &t.todoStore)
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	//close the json file
-	err = file.Close()
-	if err != nil {
-		panic(err)
+	} else {
+		fmt.Println("No data found")
 	}
 }

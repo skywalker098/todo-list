@@ -1,22 +1,24 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/todolist_iteration1/todo"
 )
 
 func main() {
 	NewTodoServiceIns := todo.NewTodoService()
-	NewTodoServiceIns.LoadFromJson()
+	// NewTodoServiceIns.LoadFromJson()
 
 	//add
-	fmt.Println(NewTodoServiceIns.AddTodo("Argentina"))
-	fmt.Println(NewTodoServiceIns.AddTodo("Brazil"))
-	fmt.Println(NewTodoServiceIns.AddTodo("Romania"))
+	// fmt.Println(NewTodoServiceIns.AddTodo("Argentina"))
+	// fmt.Println(NewTodoServiceIns.AddTodo("Brazil"))
+	// fmt.Println(NewTodoServiceIns.AddTodo("Romania"))
+	// fmt.Println(NewTodoServiceIns.AddTodo("São Paulo"))
+	// NewTodoServiceIns.AddTodo("France")
+	NewTodoServiceIns.ListTodo()
+
 	//remove
-	fmt.Println(NewTodoServiceIns.RemoveTodo("Brazil"))
+	// NewTodoServiceIns.RemoveTodo("Brazil")
 	//List
-	fmt.Println(NewTodoServiceIns.ListTodo())
+	// NewTodoServiceIns.ListTodo()
 
 }
